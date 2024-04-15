@@ -10,11 +10,10 @@ import java.util.UUID;
 @Service
 public class PizzaRepository {
 
-    private static List<Pizza> pizzaList = new ArrayList<>();
+    private static final List<Pizza> pizzaList = new ArrayList<>();
 
-    public Pizza createPizza(Pizza pizzaToSave) {
+    public void createPizza(Pizza pizzaToSave) {
         pizzaList.add(pizzaToSave);
-        return pizzaToSave;
     }
 
     public List<Pizza> readAll() {
@@ -23,7 +22,8 @@ public class PizzaRepository {
 
     // TODO complete method
     public Pizza findPizzaById(UUID uuid) {
-        return new Pizza();
+        return pizzaList.stream().filter(pizza -> pizza.getId().toString().equals(uuid.toString()))
+                .findAny().get();
     }
 
 }
