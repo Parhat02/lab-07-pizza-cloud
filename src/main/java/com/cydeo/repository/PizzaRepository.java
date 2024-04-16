@@ -1,5 +1,6 @@
 package com.cydeo.repository;
 
+import com.cydeo.exception.PizzaNotFoundException;
 import com.cydeo.model.Pizza;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +22,9 @@ public class PizzaRepository {
     }
 
     // TODO complete method
-    public Pizza findPizzaById(UUID uuid) {
+    public Pizza findPizzaById(UUID uuid) throws PizzaNotFoundException {
         return pizzaList.stream().filter(pizza -> pizza.getId().toString().equals(uuid.toString()))
-                .findAny().get();
+                .findFirst().orElseThrow(() ->  new PizzaNotFoundException("Pizza not found"));
     }
 
 }
